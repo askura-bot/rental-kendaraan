@@ -11,6 +11,25 @@ use Illuminate\View\View;
 class VehicleController extends Controller
 {
     /**
+     * Display the homepage with featured vehicles.
+     */
+    public function home(): View
+    {
+        $vehicles = Vehicle::query()
+            ->where('status', 'available')
+            ->with('category', 'images')
+            ->orderBy('created_at', 'desc')
+            ->take(6)
+            ->get();
+
+        $categories = Category::withCount('vehicles')->get();
+        $totalVehicles = Vehicle::where('status', 'available')->count();
+        $featuredVehicle = $vehicles->first();
+
+        return view('home', compact('vehicles', 'categories', 'totalVehicles', 'featuredVehicle'));
+    }
+
+    /**
      * Display the vehicle catalog with search and filters.
      */
     public function catalog(Request $request): View
@@ -80,6 +99,28 @@ class VehicleController extends Controller
             ->get();
 
         return view('vehicle-detail', compact('vehicle', 'whatsappUrl', 'relatedVehicles'));
+    }
+
+    /**
+     * Display the about page.
+     */
+    public function about(): View
+    {
+        $totalVehicles = Vehicle::where('status', 'available')->count();
+        $vehicles = Vehicle::where('status', 'available')
+            ->with('images')
+            ->take(2)
+            ->get();
+
+        return view('about', compact('totalVehicles', 'vehicles'));
+    }
+
+    /**
+     * Display the contact page.
+     */
+    public function contact(): View
+    {
+        return view('contact');
     }
 
     /**

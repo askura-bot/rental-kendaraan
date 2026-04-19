@@ -16,7 +16,8 @@
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-            @include('layouts.navigation')
+            {{-- Always show admin navigation - this layout is for admin pages only --}}
+            <x-admin-navigation />
 
             <!-- Page Heading -->
             @isset($header)

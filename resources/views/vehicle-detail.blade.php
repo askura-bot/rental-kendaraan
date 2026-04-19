@@ -1,18 +1,24 @@
-<x-app-layout>
-    <div class="py-12 bg-gray-50 dark:bg-gray-900">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <!-- Breadcrumb & Back Button -->
-            <div class="mb-6 flex items-center justify-between">
-                <div class="text-sm text-gray-600 dark:text-gray-400">
-                    <a href="{{ route('catalog') }}" class="hover:text-blue-600 dark:hover:text-blue-400">{{ __('Catalog') }}</a>
+<x-public-layout>
+    {{-- Page Header --}}
+    <section class="bg-primary-900 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between">
+                <div class="text-sm text-primary-200">
+                    <a href="{{ route('home') }}" class="hover:text-white transition">{{ __('Home') }}</a>
                     <span class="mx-2">/</span>
-                    <span class="text-gray-900 dark:text-white font-semibold">{{ $vehicle->name }}</span>
+                    <a href="{{ route('vehicles') }}" class="hover:text-white transition">{{ __('Vehicles') }}</a>
+                    <span class="mx-2">/</span>
+                    <span class="text-white font-semibold">{{ $vehicle->name }}</span>
                 </div>
-                <a href="{{ route('catalog') }}" class="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 dark:bg-gray-600 dark:hover:bg-gray-500 transition font-medium text-sm">
-                    {{ __('← Back to Catalog') }}
+                <a href="{{ route('vehicles') }}" class="px-5 py-2 bg-white/10 text-white rounded-xl hover:bg-white/20 transition font-medium text-sm border border-white/20">
+                    {{ __('← Back to Vehicles') }}
                 </a>
             </div>
+        </div>
+    </section>
 
+    <div class="py-12 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Main Content -->
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <!-- Left Column: Images & Info -->
@@ -274,4 +280,4 @@
             }
         });
     </script>
-</x-app-layout>
+</x-public-layout>

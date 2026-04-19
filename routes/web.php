@@ -6,10 +6,15 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VehicleController;
 use Illuminate\Support\Facades\Route;
 
-// Public Vehicle Routes (accessible to everyone)
-Route::get('/', [VehicleController::class, 'catalog'])->name('catalog');
+// Public Routes (accessible to everyone)
+Route::get('/', [VehicleController::class, 'home'])->name('home');
+Route::get('/vehicles', [VehicleController::class, 'catalog'])->name('vehicles');
 Route::get('/vehicles/{vehicle:slug}', [VehicleController::class, 'show'])->name('vehicle-detail');
+Route::get('/about', [VehicleController::class, 'about'])->name('about');
+Route::get('/contact', [VehicleController::class, 'contact'])->name('contact');
 
+// Legacy catalog route redirect
+Route::get('/catalog', fn () => redirect()->route('vehicles'))->name('catalog');
 Route::get('/dashboard', function () {
     return redirect()->route('admin.vehicles.index');
 })->middleware(['auth', 'verified'])->name('dashboard');
