@@ -247,7 +247,7 @@
     </div>
 
     <!-- Image Modal -->
-    <div id="imageModal" class="hidden fixed inset-0 bg-black/75 z-50 flex items-center justify-center p-4" onclick="closeImageModal()">
+    <div id="imageModal" class="hidden fixed inset-0 bg-black/75 z-50 items-center justify-center p-4" onclick="closeImageModal()">
         <div class="relative max-w-4xl w-full bg-white dark:bg-gray-900 rounded-lg" onclick="event.stopPropagation()">
             <button type="button" class="absolute top-2 right-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 z-10" onclick="closeImageModal()">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -265,12 +265,16 @@
 
         function openImageModal(src) {
             document.getElementById('modalImage').src = src;
-            document.getElementById('imageModal').classList.remove('hidden');
+            const modal = document.getElementById('imageModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
             document.body.style.overflow = 'hidden';
         }
 
         function closeImageModal() {
-            document.getElementById('imageModal').classList.add('hidden');
+            const modal = document.getElementById('imageModal');
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
             document.body.style.overflow = 'auto';
         }
 
