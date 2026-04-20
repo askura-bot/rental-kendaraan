@@ -556,14 +556,30 @@
             method: 'DELETE',
             headers: {
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                'Content-Type': 'application/json'
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest'
             }
         })
         .then(response => {
-            if (!response.ok) throw new Error('Failed to delete image');
+            if (!response.ok) {
+                return response.text().then(text => {
+                    throw new Error(`Server error ${response.status}: ${text}`);
+                });
+            }
+            return response.json();
+        })
+        .then(data => {
             // Remove the image element from DOM
             button.closest('.relative').remove();
-            // Show success message
+
+            // Check if there are no more images, hide the container
+            const imagesGrid = button.closest('.grid');
+            if (imagesGrid && imagesGrid.querySelectorAll('.relative').length === 0) {
+                const wrapper = imagesGrid.closest('.mt-4');
+                if (wrapper) wrapper.remove();
+            }
+
             console.log('Image deleted successfully');
         })
         .catch(error => {

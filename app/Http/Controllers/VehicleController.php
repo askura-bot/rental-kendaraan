@@ -107,12 +107,8 @@ class VehicleController extends Controller
     public function about(): View
     {
         $totalVehicles = Vehicle::where('status', 'available')->count();
-        $vehicles = Vehicle::where('status', 'available')
-            ->with('images')
-            ->take(2)
-            ->get();
 
-        return view('about', compact('totalVehicles', 'vehicles'));
+        return view('about', compact('totalVehicles'));
     }
 
     /**

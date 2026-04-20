@@ -35,7 +35,7 @@ Route::middleware('auth')->group(function () {
         Route::post('vehicles/{vehicle}/update-status', [AdminVehicleController::class, 'updateStatus'])
             ->name('vehicles.update-status');
         // Delete vehicle image
-        Route::delete('vehicle-images/{image}', [AdminVehicleController::class, 'deleteImage'])
+        Route::delete('vehicle-images/{vehicleImage}', [AdminVehicleController::class, 'deleteImage'])
             ->name('vehicle-images.destroy');
     });
 });

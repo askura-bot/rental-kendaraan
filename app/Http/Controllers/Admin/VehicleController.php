@@ -8,7 +8,6 @@ use App\Http\Requests\UpdateVehicleRequest;
 use App\Models\Category;
 use App\Models\Vehicle;
 use App\Models\VehicleImage;
-use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
@@ -198,10 +197,10 @@ class VehicleController extends Controller implements HasMiddleware
     /**
      * Delete a gallery image.
      */
-    public function deleteImage(VehicleImage $image)
+    public function deleteImage(VehicleImage $vehicleImage)
     {
-        Storage::disk('public')->delete($image->image_path);
-        $image->delete();
+        Storage::disk('public')->delete($vehicleImage->image_path);
+        $vehicleImage->delete();
 
         if (request()->expectsJson()) {
             return response()->json(['success' => true, 'message' => 'Image deleted.']);
