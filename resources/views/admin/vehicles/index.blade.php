@@ -166,11 +166,38 @@
             document.addEventListener('DOMContentLoaded', function() {
                 const statusSelects = document.querySelectorAll('.vehicle-status-select');
 
+                const statusClasses = {
+                    available: 'bg-green-50 dark:bg-green-900 border-green-300 dark:border-green-700 text-green-800 dark:text-green-200',
+                    rented: 'bg-blue-50 dark:bg-blue-900 border-blue-300 dark:border-blue-700 text-blue-800 dark:text-blue-200',
+                    maintenance: 'bg-yellow-50 dark:bg-yellow-900 border-yellow-300 dark:border-yellow-700 text-yellow-800 dark:text-yellow-200'
+                };
+
+                function showToast(message, isSuccess) {
+                    const toast = document.createElement('div');
+                    toast.className = `fixed top-4 right-4 z-50 px-4 py-3 rounded-lg shadow-lg text-sm font-medium text-white transition-all duration-300 ${isSuccess ? 'bg-green-600' : 'bg-red-600'}`;
+                    toast.textContent = message;
+                    document.body.appendChild(toast);
+                    setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 300); }, 2500);
+                }
+
+                function updateSelectStyle(select, status) {
+                    // Remove all status classes
+                    Object.values(statusClasses).forEach(cls => cls.split(' ').forEach(c => select.classList.remove(c)));
+                    // Add new status classes
+                    if (statusClasses[status]) {
+                        statusClasses[status].split(' ').forEach(c => select.classList.add(c));
+                    }
+                }
+
                 statusSelects.forEach(select => {
+                    select.dataset.previousStatus = select.value;
+
                     select.addEventListener('change', async function() {
-                        const vehicleId = this.dataset.vehicleId;
                         const endpoint = this.dataset.endpoint;
                         const newStatus = this.value;
+                        const previousStatus = this.dataset.previousStatus;
+
+                        this.disabled = true;
 
                         try {
                             const response = await fetch(endpoint, {
@@ -188,24 +215,17 @@
                             const data = await response.json();
 
                             if (data.success) {
-                                // Update UI with success feedback
-                                const row = this.closest('tr');
-                                const statusCell = row.querySelector('td:nth-child(4)');
-
-                                // Show success toast (optional)
-                                console.log(data.message);
+                                updateSelectStyle(this, newStatus);
+                                this.dataset.previousStatus = newStatus;
+                                showToast('{{ __("Status updated successfully!") }}', true);
                             }
                         } catch (error) {
                             console.error('Error:', error);
-                            alert('{{ __('Failed to update status') }}');
-                            // Revert select to previous value
-                            this.value = this.dataset.previousStatus || this.value;
+                            this.value = previousStatus;
+                            showToast('{{ __("Failed to update status") }}', false);
+                        } finally {
+                            this.disabled = false;
                         }
-                    });
-
-                    // Store previous status for potential revert
-                    select.addEventListener('click', function() {
-                        this.dataset.previousStatus = this.value;
                     });
                 });
             });
