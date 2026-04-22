@@ -81,11 +81,6 @@ class VehicleController extends Controller
     {
         $vehicle->load('category', 'images');
 
-        // Only show available vehicles
-        if ($vehicle->status !== 'available') {
-            abort(404);
-        }
-
         // Get WhatsApp number from settings
         $whatsappNumber = Setting::getValue('whatsapp_number', '');
         $whatsappUrl = $this->generateWhatsAppUrl($vehicle, $whatsappNumber);

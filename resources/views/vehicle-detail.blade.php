@@ -17,6 +17,23 @@
         </div>
     </section>
 
+    {{-- Vehicle Unavailability Banner --}}
+    @if($vehicle->status === 'rented')
+        <div class="bg-blue-600 text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-center gap-2">
+                <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <span class="text-sm font-medium">{{ __('This vehicle is currently rented out. Please check back later or browse other available vehicles.') }}</span>
+            </div>
+        </div>
+    @elseif($vehicle->status === 'maintenance')
+        <div class="bg-yellow-500 text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-center gap-2">
+                <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <span class="text-sm font-medium">{{ __('This vehicle is currently under maintenance. Please check back later or browse other available vehicles.') }}</span>
+            </div>
+        </div>
+    @endif
+
     <div class="py-12 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Main Content -->
@@ -157,26 +174,48 @@
                             <p class="text-xs text-gray-500 dark:text-gray-400">{{ __('per rental') }}</p>
                         </div>
 
-                        <!-- WhatsApp Booking Button -->
-                        <a
-                            href="{{ $whatsappUrl }}"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="w-full flex items-center justify-center gap-2 px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-bold rounded-lg transition mb-3"
-                        >
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12.031 6.172c-3.173 0-5.538 1.672-5.538 3.745 0 1.584.924 2.863 2.467 3.457-.113.636-.72 3.471-1.338 5.746-.167.495-.295.991-.295 1.458 0 .628.231 1.122.693 1.122.585 0 1.463-.455 3.432-3.483.512.294 1.338.456 2.579.456 3.173 0 5.538-1.672 5.538-3.745 0-2.069-2.365-3.755-5.538-3.755zm0 5.905c-.666 0-1.194-.51-1.194-1.16 0-.65.528-1.158 1.194-1.158.666 0 1.193.508 1.193 1.158 0 .65-.527 1.16-1.193 1.16z"/>
-                                <path d="M.461 11.456l1.733 5.195A5.01 5.01 0 005 21.257c2.393 0 4.617-.98 6.189-2.568l5.736 5.736c.396.396 1.04.396 1.435 0 .396-.396.396-1.04 0-1.435L13.36 17.254c2.022-1.46 3.37-3.8 3.37-6.49C16.73 6.235 13.495 3 9.365 3 5.236 3 2 6.235 2 10.365c0 .524.052 1.033.138 1.528L.461 10.59c-.396-.396-1.04-.396-1.435 0-.396.396-.396 1.04 0 1.435z" fill-rule="evenodd" clip-rule="evenodd"/>
-                            </svg>
-                            {{ __('Book via WhatsApp') }}
-                        </a>
+                        {{-- WhatsApp Booking Button --}}
+                        @if($vehicle->status === 'available')
+                            <a
+                                href="{{ $whatsappUrl }}"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="w-full flex items-center justify-center gap-2 px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-bold rounded-lg transition mb-3"
+                            >
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12.031 6.172c-3.173 0-5.538 1.672-5.538 3.745 0 1.584.924 2.863 2.467 3.457-.113.636-.72 3.471-1.338 5.746-.167.495-.295.991-.295 1.458 0 .628.231 1.122.693 1.122.585 0 1.463-.455 3.432-3.483.512.294 1.338.456 2.579.456 3.173 0 5.538-1.672 5.538-3.745 0-2.069-2.365-3.755-5.538-3.755zm0 5.905c-.666 0-1.194-.51-1.194-1.16 0-.65.528-1.158 1.194-1.158.666 0 1.193.508 1.193 1.158 0 .65-.527 1.16-1.193 1.16z"/>
+                                    <path d="M.461 11.456l1.733 5.195A5.01 5.01 0 005 21.257c2.393 0 4.617-.98 6.189-2.568l5.736 5.736c.396.396 1.04.396 1.435 0 .396-.396.396-1.04 0-1.435L13.36 17.254c2.022-1.46 3.37-3.8 3.37-6.49C16.73 6.235 13.495 3 9.365 3 5.236 3 2 6.235 2 10.365c0 .524.052 1.033.138 1.528L.461 10.59c-.396-.396-1.04-.396-1.435 0-.396.396-.396 1.04 0 1.435z" fill-rule="evenodd" clip-rule="evenodd"/>
+                                </svg>
+                                {{ __('Book via WhatsApp') }}
+                            </a>
 
-                        <!-- Info Box -->
-                        <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-3">
-                            <p class="text-sm text-blue-900 dark:text-blue-200">
-                                ℹ️ {{ __('Click the button above to start a conversation with us on WhatsApp. A template message has been prepared for your convenience.') }}
-                            </p>
-                        </div>
+                            {{-- Info Box --}}
+                            <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-3">
+                                <p class="text-sm text-blue-900 dark:text-blue-200">
+                                    ℹ️ {{ __('Click the button above to start a conversation with us on WhatsApp. A template message has been prepared for your convenience.') }}
+                                </p>
+                            </div>
+                        @elseif($vehicle->status === 'rented')
+                            <div class="w-full flex items-center justify-center gap-2 px-6 py-3 bg-blue-100 text-blue-800 font-bold rounded-lg mb-3">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/></svg>
+                                {{ __('Currently Rented') }}
+                            </div>
+                            <div class="bg-blue-50 border border-blue-200 rounded-lg p-3">
+                                <p class="text-sm text-blue-800">
+                                    {{ __('This vehicle is currently being rented by another customer. Please check back later or browse our other available vehicles.') }}
+                                </p>
+                            </div>
+                        @elseif($vehicle->status === 'maintenance')
+                            <div class="w-full flex items-center justify-center gap-2 px-6 py-3 bg-yellow-100 text-yellow-800 font-bold rounded-lg mb-3">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
+                                {{ __('Under Maintenance') }}
+                            </div>
+                            <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
+                                <p class="text-sm text-yellow-800">
+                                    {{ __('This vehicle is currently undergoing maintenance and is temporarily unavailable. Please check back later.') }}
+                                </p>
+                            </div>
+                        @endif
                     </div>
 
                     <!-- Info Card -->
