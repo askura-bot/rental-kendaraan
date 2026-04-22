@@ -56,39 +56,51 @@
                         <h2 class="text-2xl font-bold text-gray-900 mb-2">{{ __('Send us a message') }}</h2>
                         <p class="text-sm text-gray-500 mb-8">{{ __('Fill out the form below and we\'ll get back to you as soon as possible.') }}</p>
 
-                        <form class="space-y-5">
+                        @if (session('success'))
+                            <div class="mb-6 rounded-xl bg-green-50 border border-green-200 p-4 text-sm text-green-800">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+
+                        <form method="POST" action="{{ route('contact.store') }}" class="space-y-5">
+                            @csrf
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700 mb-1.5">{{ __('First Name') }}</label>
-                                    <input type="text" class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition" placeholder="{{ __('John') }}">
+                                    <input type="text" name="first_name" value="{{ old('first_name') }}" class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition @error('first_name') border-red-400 @enderror" placeholder="{{ __('John') }}">
+                                    @error('first_name') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700 mb-1.5">{{ __('Last Name') }}</label>
-                                    <input type="text" class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition" placeholder="{{ __('Doe') }}">
+                                    <input type="text" name="last_name" value="{{ old('last_name') }}" class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition @error('last_name') border-red-400 @enderror" placeholder="{{ __('Doe') }}">
+                                    @error('last_name') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
                                 </div>
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-1.5">{{ __('Email') }}</label>
-                                <input type="email" class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition" placeholder="john@example.com">
+                                <input type="email" name="email" value="{{ old('email') }}" class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition @error('email') border-red-400 @enderror" placeholder="john@example.com">
+                                @error('email') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-1.5">{{ __('Phone Number') }}</label>
-                                <input type="tel" class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition" placeholder="+62 812 xxxx xxxx">
+                                <input type="tel" name="phone" value="{{ old('phone') }}" class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition" placeholder="+62 812 xxxx xxxx">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-1.5">{{ __('Subject') }}</label>
-                                <select class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition">
+                                <select name="subject" class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition @error('subject') border-red-400 @enderror">
                                     <option value="">{{ __('Select a subject') }}</option>
-                                    <option>{{ __('General Inquiry') }}</option>
-                                    <option>{{ __('Booking Question') }}</option>
-                                    <option>{{ __('Vehicle Information') }}</option>
-                                    <option>{{ __('Partnership') }}</option>
-                                    <option>{{ __('Other') }}</option>
+                                    <option value="General Inquiry" @selected(old('subject') === 'General Inquiry')>{{ __('General Inquiry') }}</option>
+                                    <option value="Booking Question" @selected(old('subject') === 'Booking Question')>{{ __('Booking Question') }}</option>
+                                    <option value="Vehicle Information" @selected(old('subject') === 'Vehicle Information')>{{ __('Vehicle Information') }}</option>
+                                    <option value="Partnership" @selected(old('subject') === 'Partnership')>{{ __('Partnership') }}</option>
+                                    <option value="Other" @selected(old('subject') === 'Other')>{{ __('Other') }}</option>
                                 </select>
+                                @error('subject') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-1.5">{{ __('Message') }}</label>
-                                <textarea rows="5" class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition resize-none" placeholder="{{ __('Write your message here...') }}"></textarea>
+                                <textarea name="message" rows="5" class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition resize-none @error('message') border-red-400 @enderror" placeholder="{{ __('Write your message here...') }}">{{ old('message') }}</textarea>
+                                @error('message') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
                             </div>
                             <button type="submit" class="w-full px-8 py-3.5 bg-primary-700 text-white font-bold rounded-xl hover:bg-primary-800 transition-colors duration-200 shadow-lg shadow-primary-700/20">
                                 {{ __('Send Message') }}

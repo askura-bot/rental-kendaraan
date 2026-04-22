@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
+use App\Http\Controllers\Admin\ContactMessageController as AdminContactMessageController;
 use App\Http\Controllers\Admin\VehicleController as AdminVehicleController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VehicleController;
 use Illuminate\Support\Facades\Route;
@@ -12,6 +14,7 @@ Route::get('/vehicles', [VehicleController::class, 'catalog'])->name('vehicles')
 Route::get('/vehicles/{vehicle:slug}', [VehicleController::class, 'show'])->name('vehicle-detail');
 Route::get('/about', [VehicleController::class, 'about'])->name('about');
 Route::get('/contact', [VehicleController::class, 'contact'])->name('contact');
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
 // Legacy catalog route redirect
 Route::get('/catalog', fn () => redirect()->route('vehicles'))->name('catalog');
@@ -37,6 +40,11 @@ Route::middleware('auth')->group(function () {
         // Delete vehicle image
         Route::delete('vehicle-images/{vehicleImage}', [AdminVehicleController::class, 'deleteImage'])
             ->name('vehicle-images.destroy');
+
+        // Contact messages management
+        Route::get('messages', [AdminContactMessageController::class, 'index'])->name('messages.index');
+        Route::get('messages/{contactMessage}', [AdminContactMessageController::class, 'show'])->name('messages.show');
+        Route::delete('messages/{contactMessage}', [AdminContactMessageController::class, 'destroy'])->name('messages.destroy');
     });
 });
 

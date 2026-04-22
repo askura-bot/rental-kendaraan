@@ -18,6 +18,13 @@
                 <a href="{{ route('admin.categories.index') }}" class="px-4 py-2 text-sm font-medium transition {{ request()->routeIs('admin.categories.*') ? 'text-blue-600 dark:text-blue-400 border-b-2 border-blue-600' : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100' }}">
                     {{ __('Categories') }}
                 </a>
+                <a href="{{ route('admin.messages.index') }}" class="px-4 py-2 text-sm font-medium transition flex items-center gap-1.5 {{ request()->routeIs('admin.messages.*') ? 'text-blue-600 dark:text-blue-400 border-b-2 border-blue-600' : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100' }}">
+                    {{ __('Messages') }}
+                    @php $unreadCount = \App\Models\ContactMessage::unread()->count(); @endphp
+                    @if($unreadCount > 0)
+                        <span class="inline-flex items-center justify-center px-1.5 py-0.5 text-xs font-bold leading-none text-white bg-red-500 rounded-full">{{ $unreadCount }}</span>
+                    @endif
+                </a>
 
                 <!-- Account Dropdown -->
                 <x-dropdown align="right" width="48">
@@ -67,6 +74,12 @@
             </a>
             <a href="{{ route('admin.categories.index') }}" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 text-sm font-medium">
                 {{ __('Categories') }}
+            </a>
+            <a href="{{ route('admin.messages.index') }}" class="flex items-center gap-1.5 px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 text-sm font-medium">
+                {{ __('Messages') }}
+                @if($unreadCount ?? (\App\Models\ContactMessage::unread()->count()) > 0)
+                    <span class="inline-flex items-center justify-center px-1.5 py-0.5 text-xs font-bold leading-none text-white bg-red-500 rounded-full">{{ $unreadCount ?? \App\Models\ContactMessage::unread()->count() }}</span>
+                @endif
             </a>
             <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 text-sm font-medium">
                 {{ __('Profile') }}
