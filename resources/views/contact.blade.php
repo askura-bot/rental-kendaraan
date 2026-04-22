@@ -83,7 +83,7 @@
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-1.5">{{ __('Phone Number') }}</label>
-                                <input type="tel" name="phone" value="{{ old('phone') }}" class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition" placeholder="+62 812 xxxx xxxx">
+                                <input type="tel" name="phone" value="{{ old('phone') }}" inputmode="numeric" pattern="[0-9+\-\s]*" oninput="this.value = this.value.replace(/[^0-9+\-\s]/g, '')" class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition" placeholder="+62 812 xxxx xxxx">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-1.5">{{ __('Subject') }}</label>

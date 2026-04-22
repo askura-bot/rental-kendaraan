@@ -173,7 +173,7 @@
 
             <!-- Vehicle Cards Grid -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
-                @foreach($vehicles->take(6) as $vehicle)
+                @foreach($vehicles->take(3) as $vehicle)
                     <a href="{{ route('vehicle-detail', $vehicle->slug) }}" class="group">
                         <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100">
                             <!-- Image -->
