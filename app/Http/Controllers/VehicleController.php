@@ -116,7 +116,15 @@ class VehicleController extends Controller
      */
     public function contact(): View
     {
-        return view('contact');
+        $contactSettings = [
+            'office_address' => Setting::getValue('contact_office_address', 'Jl. Raya Utama No. 123, Jakarta, Indonesia 10110'),
+            'whatsapp' => Setting::getValue('contact_whatsapp', '+62 812 3456 7890'),
+            'email' => Setting::getValue('contact_email', 'info@driveease.com'),
+            'hours_weekday' => Setting::getValue('contact_hours_weekday', 'Monday - Saturday: 08:00 - 20:00'),
+            'hours_weekend' => Setting::getValue('contact_hours_weekend', 'Sunday: 09:00 - 17:00'),
+        ];
+
+        return view('contact', compact('contactSettings'));
     }
 
     /**

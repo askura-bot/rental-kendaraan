@@ -54,18 +54,23 @@
             <!-- Contact Info -->
             <div>
                 <h4 class="text-white font-semibold text-sm uppercase tracking-wider mb-5">{{ __('Contact Us') }}</h4>
+                @php
+                    $footerAddress = \App\Models\Setting::getValue('contact_office_address', 'Jl. Raya Utama No. 123, Jakarta, Indonesia');
+                    $footerWhatsapp = \App\Models\Setting::getValue('contact_whatsapp', '+62 812 3456 7890');
+                    $footerEmail = \App\Models\Setting::getValue('contact_email', 'info@driveease.com');
+                @endphp
                 <ul class="space-y-3">
                     <li class="flex items-start gap-3">
                         <svg class="w-5 h-5 text-primary-400 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                        <span class="text-sm text-gray-400">Jl. Raya Utama No. 123,<br>Jakarta, Indonesia</span>
+                        <span class="text-sm text-gray-400">{!! nl2br(e($footerAddress)) !!}</span>
                     </li>
                     <li class="flex items-center gap-3">
                         <svg class="w-5 h-5 text-primary-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
-                        <span class="text-sm text-gray-400">+62 812 3456 7890</span>
+                        <span class="text-sm text-gray-400">{{ $footerWhatsapp }}</span>
                     </li>
                     <li class="flex items-center gap-3">
                         <svg class="w-5 h-5 text-primary-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-                        <span class="text-sm text-gray-400">info@driveease.com</span>
+                        <span class="text-sm text-gray-400">{{ $footerEmail }}</span>
                     </li>
                 </ul>
             </div>
