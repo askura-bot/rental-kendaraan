@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Setting;
+use App\Models\Testimonial;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -26,7 +27,9 @@ class VehicleController extends Controller
         $totalVehicles = Vehicle::where('status', 'available')->count();
         $featuredVehicle = $vehicles->first();
 
-        return view('home', compact('vehicles', 'categories', 'totalVehicles', 'featuredVehicle'));
+        $testimonials = Testimonial::where('is_active', true)->latest()->take(3)->get();
+
+        return view('home', compact('vehicles', 'categories', 'totalVehicles', 'featuredVehicle', 'testimonials'));
     }
 
     /**

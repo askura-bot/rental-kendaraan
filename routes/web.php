@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\ContactMessageController as AdminContactMessageController;
 use App\Http\Controllers\Admin\SettingController as AdminSettingController;
+use App\Http\Controllers\Admin\TestimonialController as AdminTestimonialController;
 use App\Http\Controllers\Admin\VehicleController as AdminVehicleController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProfileController;
@@ -50,6 +51,9 @@ Route::middleware('auth')->group(function () {
         // Contact settings management
         Route::get('settings/contact', [AdminSettingController::class, 'edit'])->name('settings.contact');
         Route::put('settings/contact', [AdminSettingController::class, 'update'])->name('settings.contact.update');
+
+        // Testimonials management
+        Route::resource('testimonials', AdminTestimonialController::class);
     });
 });
 
