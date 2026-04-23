@@ -85,7 +85,7 @@ class VehicleController extends Controller
         $vehicle->load('category', 'images');
 
         // Get WhatsApp number from settings
-        $whatsappNumber = Setting::getValue('whatsapp_number', '');
+        $whatsappNumber = Setting::getValue('contact_whatsapp', '');
         $whatsappUrl = $this->generateWhatsAppUrl($vehicle, $whatsappNumber);
 
         // Get related vehicles (same category, excluding current)
