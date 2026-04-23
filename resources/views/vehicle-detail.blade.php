@@ -2,15 +2,15 @@
     {{-- Page Header --}}
     <section class="bg-primary-900 py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between">
-                <div class="text-sm text-primary-200">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div class="text-sm text-primary-200 break-words">
                     <a href="{{ route('home') }}" class="hover:text-white transition">{{ __('Home') }}</a>
-                    <span class="mx-2">/</span>
+                    <span class="mx-1 sm:mx-2">/</span>
                     <a href="{{ route('vehicles') }}" class="hover:text-white transition">{{ __('Vehicles') }}</a>
-                    <span class="mx-2">/</span>
+                    <span class="mx-1 sm:mx-2">/</span>
                     <span class="text-white font-semibold">{{ $vehicle->name }}</span>
                 </div>
-                <a href="{{ route('vehicles') }}" class="px-5 py-2 bg-white/10 text-white rounded-xl hover:bg-white/20 transition font-medium text-sm border border-white/20">
+                <a href="{{ route('vehicles') }}" class="w-full sm:w-auto text-center px-5 py-2 bg-white/10 text-white rounded-xl hover:bg-white/20 transition font-medium text-sm border border-white/20">
                     {{ __('← Back to Vehicles') }}
                 </a>
             </div>
@@ -43,7 +43,7 @@
                     <!-- Gallery -->
                     <div class="bg-white rounded-lg shadow-lg overflow-hidden mb-6">
                         <!-- Main Image -->
-                        <div class="relative bg-gray-200 h-96">
+                        <div class="relative bg-gray-200 aspect-video w-full">
                             @if($vehicle->thumbnail)
                                 <img
                                     id="mainImage"
@@ -96,7 +96,7 @@
                     <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
                         <h2 class="text-2xl font-bold text-gray-900 mb-6">{{ __('Specifications') }}</h2>
 
-                        <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
                             <!-- Brand -->
                             <div class="border-l-4 border-blue-500 pl-4">
                                 <p class="text-sm text-gray-600 font-medium">{{ __('Brand') }}</p>
@@ -139,9 +139,9 @@
                     @if($vehicle->description)
                         <div class="bg-white rounded-lg shadow-lg p-6">
                             <h2 class="text-2xl font-bold text-gray-900 mb-4">{{ __('Description') }}</h2>
-                            <p class="text-gray-700 leading-relaxed text-justify">
-                                {{ $vehicle->description }}
-                            </p>
+                            <div class="text-gray-700 leading-relaxed text-justify space-y-4">
+                                {!! nl2br(e($vehicle->description)) !!}
+                            </div>
                         </div>
                     @endif
                 </div>
