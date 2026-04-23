@@ -95,6 +95,70 @@
                         @error('contact_hours_weekend') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
                     </div>
 
+                    {{-- Pre-Booking Information --}}
+                    <div>
+                        <label for="pre_booking_information" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                            {{ __('Pre-Booking Information') }}
+                        </label>
+                        <textarea
+                            id="pre_booking_information"
+                            name="pre_booking_information"
+                            rows="4"
+                            class="w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white text-sm"
+                        >{{ old('pre_booking_information', $settings['pre_booking_information']) }}</textarea>
+                        <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">{{ __('Information displayed to users before they book a vehicle.') }}</p>
+                        @error('pre_booking_information') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
+                    </div>
+
+                    {{-- Social Media Accounts --}}
+                    <div class="border-t border-gray-200 dark:border-gray-700 pt-6">
+                        <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-4">{{ __('Social Media') }}</h3>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label for="contact_facebook" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                    {{ __('Facebook URL') }}
+                                </label>
+                                <input
+                                    type="text"
+                                    id="contact_facebook"
+                                    name="contact_facebook"
+                                    value="{{ old('contact_facebook', $settings['contact_facebook']) }}"
+                                    class="w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white text-sm"
+                                />
+                                @error('contact_facebook') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
+                            </div>
+
+                            <div>
+                                <label for="contact_twitter" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                    {{ __('Twitter/X URL') }}
+                                </label>
+                                <input
+                                    type="text"
+                                    id="contact_twitter"
+                                    name="contact_twitter"
+                                    value="{{ old('contact_twitter', $settings['contact_twitter']) }}"
+                                    class="w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white text-sm"
+                                />
+                                @error('contact_twitter') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
+                            </div>
+
+                            <div>
+                                <label for="contact_instagram" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                    {{ __('Instagram URL') }}
+                                </label>
+                                <input
+                                    type="text"
+                                    id="contact_instagram"
+                                    name="contact_instagram"
+                                    value="{{ old('contact_instagram', $settings['contact_instagram']) }}"
+                                    class="w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white text-sm"
+                                />
+                                @error('contact_instagram') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="flex justify-end pt-4 border-t border-gray-200 dark:border-gray-700">
                         <button
                             type="submit"

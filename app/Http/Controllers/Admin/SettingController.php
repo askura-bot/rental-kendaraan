@@ -33,6 +33,10 @@ class SettingController extends Controller implements HasMiddleware
         'contact_email' => 'info@driveease.com',
         'contact_hours_weekday' => 'Monday - Saturday: 08:00 - 20:00',
         'contact_hours_weekend' => 'Sunday: 09:00 - 17:00',
+        'contact_facebook' => '',
+        'contact_twitter' => '',
+        'contact_instagram' => '',
+        'pre_booking_information' => "✓ Have your ID ready\n✓ Bring a valid driving license\n✓ Prepare security deposit\n✓ Check terms & conditions",
     ];
 
     /**
@@ -59,6 +63,10 @@ class SettingController extends Controller implements HasMiddleware
             'contact_email' => ['required', 'email', 'max:255'],
             'contact_hours_weekday' => ['required', 'string', 'max:255'],
             'contact_hours_weekend' => ['required', 'string', 'max:255'],
+            'contact_facebook' => ['nullable', 'string', 'max:255'],
+            'contact_twitter' => ['nullable', 'string', 'max:255'],
+            'contact_instagram' => ['nullable', 'string', 'max:255'],
+            'pre_booking_information' => ['nullable', 'string'],
         ]);
 
         foreach ($validated as $key => $value) {
