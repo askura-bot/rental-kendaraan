@@ -27,7 +27,7 @@ class VehicleController extends Controller
         $totalVehicles = Vehicle::where('status', 'available')->count();
         $featuredVehicle = $vehicles->first();
 
-        $testimonials = Testimonial::where('is_active', true)->latest()->take(3)->get();
+        $testimonials = Testimonial::where('is_active', true)->latest()->get();
 
         return view('home', compact('vehicles', 'categories', 'totalVehicles', 'featuredVehicle', 'testimonials'));
     }
